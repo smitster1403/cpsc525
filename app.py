@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
-
+# here is a template
 # Simulated encryption state
 encryption_enabled = False
 @app.route('/favicon.ico')
