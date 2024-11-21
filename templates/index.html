@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Encryption Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .status {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Encryption Toggle</h1>
+    <label>
+        <input type="checkbox" id="encryption-checkbox">
+        Enable Encryption
+    </label>
+    <button onclick="updateEncryption()">Update Encryption</button>
+    <div class="status">
+        <strong>Encryption Status:</strong>
+        <span id="encryption-status">Not Enabled</span>
+    </div>
+
+    <script>
+        async function updateEncryption() {
+            const checkbox = document.getElementById('encryption-checkbox');
+            const response = await fetch('/toggle-encryption', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ enableEncryption: checkbox.checked })
+            });
+            const result = await response.json();
+            document.getElementById('encryption-status').textContent = result.encryptionEnabled
+                ? "Enabled"
+                : "Not Enabled";
+        }
+
+        async function fetchStatus() {
+            const response = await fetch('/status');
+            const result = await response.json();
+            document.getElementById('encryption-status').textContent = result.encryptionEnabled
+                ? "Enabled"
+                : "Not Enabled";
+        }
+
+        // Fetch initial status on load
+        fetchStatus();
+    </script>
+</body>
+</html>
