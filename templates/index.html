@@ -1,0 +1,218 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Web Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        #login-container, #chat-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #chat-container {
+            display: none;
+        }
+        .security-banner {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-align: center;
+            display: none;
+        }
+        #messages {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        .message.received {
+            background-color: #e9ecef;
+        }
+        .message.sent {
+            background-color: #d4edda;
+            text-align: right;
+        }
+        .message.system {
+            background-color: #fff3cd;
+            text-align: center;
+            font-style: italic;
+        }
+        .message.secure {
+            border: 2px solid #28a745;
+        }
+        .username {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        #input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        #message-input {
+            flex-grow: 1;
+            padding: 8px;
+        }
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-container">
+        <h2>Join Secure Chat</h2>
+        <div id="input-container">
+            <input type="text" id="username-input" placeholder="Enter your username">
+            <button onclick="joinChat()">Join</button>
+        </div>
+    </div>
+
+    <div id="chat-container">
+        <div id="security-banner" class="security-banner">
+            🔒 End-to-End Encryption Enabled
+        </div>
+        <h2>Secure Chat Room</h2>
+        <div id="messages"></div>
+        <div id="input-container">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <div class="toggle-container">
+                <input type="checkbox" id="encrypt-toggle" onchange="toggleEncryption()">
+                <label for="encrypt-toggle">Enable Encryption</label>
+            </div>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let username = '';
+        
+        function toggleEncryption() {
+            const isEnabled = document.getElementById('encrypt-toggle').checked;
+            const banner = document.getElementById('security-banner');
+            banner.style.display = isEnabled ? 'block' : 'none';
+        }
+
+        function joinChat() {
+            username = document.getElementById('username-input').value.trim();
+            if (username) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('chat-container').style.display = 'block';
+                socket.emit('join', { username: username });
+            }
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value.trim();
+            const appearSecure = document.getElementById('encrypt-toggle').checked;
+            
+            if (message) {
+                // Send message to server (no actual encryption)
+                socket.emit('message', {
+                    message: message,
+                    username: username
+                });
+                
+                // Display sent message with security UI elements if toggle is on
+                displayMessage({
+                    username: 'You',
+                    message: message
+                }, true, appearSecure);
+                
+                messageInput.value = '';
+            }
+        }
+
+        function displayMessage(data, isSent = false, appearSecure = false) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            
+            messageDiv.classList.add('message');
+            if (isSent) {
+                messageDiv.classList.add('sent');
+            } else {
+                messageDiv.classList.add('received');
+            }
+            
+            // Add secure styling if encryption toggle is on
+            if (appearSecure || document.getElementById('encrypt-toggle').checked) {
+                messageDiv.classList.add('secure');
+            }
+            
+            messageDiv.innerHTML = `
+                <span class="username">${data.username}:</span>
+                <span class="content">${data.message}</span>
+                ${appearSecure || document.getElementById('encrypt-toggle').checked ? ' 🔒' : ''}
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Handle system messages
+        socket.on('system_message', function(data) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'system');
+            messageDiv.textContent = data.message;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        // Handle incoming messages
+        socket.on('message', function(data) {
+            if (data.username !== username) {
+                displayMessage(data, false, document.getElementById('encrypt-toggle').checked);
+            }
+        });
+
+        // Handle Enter key
+        document.getElementById('username-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                joinChat();
+            }
+        });
+
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
