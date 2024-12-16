@@ -12,9 +12,9 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
   There is also the ability to enable encryption anytime in the chat for any duration during yor time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.</p>
 
   <h3>The exploit:</h3>
-  The exploit is a python code that connects to the port at which the communication occurs in the chatroom. It "listens" in on the conversation and is able to read and log the chats in a log file.
+  <p>The exploit is a python code that connects to the port at which the communication occurs in the chatroom. It "listens" in on the conversation and is able to read and log the chats in a log file.
 
-  The exploit code called interceptor.py just listens into the conversation that is occuring amongst the other users in the chatroom at that time. In order for the users to not be made aware of a "stranger" listening in on their chat, they are not notified of a new user conection on the UI end of the system. This raises less suspicion of the existence of a bad actor connected to the system to the users.
+  The exploit code called interceptor.py just listens into the conversation that is occuring amongst the other users in the chatroom at that time. In order for the users to not be made aware of a "stranger" listening in on their chat, they are not notified of a new user conection on the UI end of the system. This raises less suspicion of the existence of a bad actor connected to the system to the users.</p>
   
 
 -------------------------------------------------------------------------------------------------------
