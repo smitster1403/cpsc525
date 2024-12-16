@@ -64,3 +64,6 @@ To remove the interceptor log file make sure you cd to the "cpsc525" directory i
 #
     rm -f intercepted_messages.log
 #
+
+Here is a link to the video summary of the blog post:
+<link>https://youtu.be/5XyE8JMs2T8</link>
