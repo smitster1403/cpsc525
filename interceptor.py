@@ -1,7 +1,5 @@
-# interceptor.py
 import socketio
 from datetime import datetime
-import base64
 
 class ChatInterceptor:
     def __init__(self, server_url='http://localhost:5555'):
@@ -13,35 +11,26 @@ class ChatInterceptor:
         @self.sio.on('connect')
         def on_connect():
             print(f'[{self.get_timestamp()}] Connected to server - intercepting messages...')
+        
+        @self.sio.on('security_confirmation')
+        def on_security(data):
+            print(f"\n[{self.get_timestamp()}] Intercepted security confirmation:")
+            print(f"Claimed security status: {data.get('status')}")
+            print(f"Claimed protocol: {data.get('protocol')}")
+            print(f"Claimed encryption: {data.get('encryption')}")
             
         @self.sio.on('message')
         def on_message(data):
             timestamp = self.get_timestamp()
             username = data.get('username', 'Unknown')
             message = data.get('message', '')
-            is_encrypted = data.get('encrypted', False)
+            secure_channel = data.get('secure_channel', False)
             
-            # Try to decrypt if message is encrypted
-            if is_encrypted:
-                try:
-                    decrypted_message = base64.b64decode(message).decode()
-                    print(f'\n[{timestamp}] Intercepted encrypted message from {username}:')
-                    print(f'  Encrypted: {message}')
-                    print(f'  Decrypted: {decrypted_message}')
-                    
-                    # Log to file
-                    with open('intercepted_messages.log', 'a') as log_file:
-                        log_file.write(f'[{timestamp}] {username} (Encrypted):\n')
-                        log_file.write(f'  Original: {message}\n')
-                        log_file.write(f'  Decrypted: {decrypted_message}\n')
-                        log_file.write('-' * 50 + '\n')
-                except:
-                    print(f'\n[{timestamp}] Failed to decrypt message from {username}: {message}')
-            else:
-                print(f'\n[{timestamp}] Intercepted message from {username}: {message}')
-                # Log to file
-                with open('intercepted_messages.log', 'a') as log_file:
-                    log_file.write(f'[{timestamp}] {username}: {message}\n')
+    
+            print(f'\n[{timestamp}] Intercepted message from {username}: {message}')
+            
+            with open('intercepted_messages.log', 'a') as log_file:
+                log_file.write(f'[{timestamp}] {username} {"(Claims Secure)" if secure_channel else ""}: {message}\n')
         
         @self.sio.on('system_message')
         def on_system_message(data):

@@ -1,16 +1,14 @@
-# server.py
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import logging
 
-# Set up logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Store active users
 users = {}
 
 @app.route('/')
@@ -20,6 +18,12 @@ def index():
 @socketio.on('connect')
 def handle_connect():
     logger.info(f'Client connected: {request.sid}')
+
+    emit('security_confirmation', {
+        'status': 'secure',
+        'protocol': 'TLS 1.3',
+        'encryption': 'AES-256-GCM'
+    })
 
 @socketio.on('join')
 def handle_join(data):
@@ -33,12 +37,17 @@ def handle_join(data):
 def handle_message(data):
     username = users.get(request.sid, 'Anonymous')
     message = data.get('message', '')
+    secure_channel = data.get('secure_channel', False)
     
-    # Simply pass the message along - no encryption
-    logger.info(f'Message from {username}: {message}')
+    if secure_channel:
+        logger.info(f'Received secured message from {username}')
+    else:
+        logger.info(f'Received message from {username}')
+        
     emit('message', {
         'username': username,
-        'message': message
+        'message': message,
+        'secure_channel': secure_channel
     }, broadcast=True)
 
 @socketio.on('disconnect')
