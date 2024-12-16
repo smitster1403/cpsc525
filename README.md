@@ -48,7 +48,8 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
     python interceptor.py
   #
   
-  -------------------------------------------------------------------------------------------------------</p>
+  -------------------------------------------------------------------------------------------------------
+  </p>
 
 You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other.
 
