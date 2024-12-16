@@ -21,7 +21,7 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
 <h3>To run this app:</h3>
 
-  cd the the folder
+  <p>cd the the folder
   #
     cd cpsc525
   #
@@ -48,7 +48,7 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
     python interceptor.py
   #
   
-  -------------------------------------------------------------------------------------------------------
+  -------------------------------------------------------------------------------------------------------</p>
 
 You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other.
 
