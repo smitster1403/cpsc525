@@ -50,7 +50,11 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
   
   -------------------------------------------------------------------------------------------------------
 
-<p>You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other.
+<p>You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other. Specifically a url that is in the following format:
+
+  #
+     * Running on http://192.168.1.86:5555
+  #
 
 However, the interceptor knows the port which you will be communicating through!! Make sure to toggle encryption so they can't "listen" to your conversation.
 
