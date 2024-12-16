@@ -19,7 +19,7 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
 -------------------------------------------------------------------------------------------------------
 
-To run this app:
+<h3>To run this app:</h3>
 
   cd the the folder
   #
