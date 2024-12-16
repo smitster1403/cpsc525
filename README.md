@@ -3,13 +3,13 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 <h1>HOW DOES OUR IMPLEMENTATION WORK:</h1>
   
   <h3>The code:</h3>
-  The code implementation is a web absed iplenetation of a chatroom using python and the flask framework. It allows for many unsers to join the same chat room to cht with each other over the same network.
+  <p>The code implementation is a web absed iplenetation of a chatroom using python and the flask framework. It allows for many unsers to join the same chat room to cht with each other over the same network.
 
   Each user can have their own unique username within the chatroom.
 
   The chatroom is standard allowing for you to see which user is who through their usernames and colour coding your messages and others messages differently.
 
-  There is also the ability to enable encryption anytime in the chat for any duration during yor time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.
+  There is also the ability to enable encryption anytime in the chat for any duration during yor time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.</p>
 
   <h3>The exploit:</h3>
   The exploit is a python code that connects to the port at which the communication occurs in the chatroom. It "listens" in on the conversation and is able to read and log the chats in a log file.
