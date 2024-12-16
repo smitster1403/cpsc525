@@ -1,6 +1,6 @@
 CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
-HOW DOES OUR IMPLEMENTATION WORK:
+<h1>HOW DOES OUR IMPLEMENTATION WORK:</h1>
   
   <h3>The code:</h3>
   The code implementation is a web absed iplenetation of a chatroom using python and the flask framework. It allows for many unsers to join the same chat room to cht with each other over the same network.
