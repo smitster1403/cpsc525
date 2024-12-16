@@ -9,7 +9,7 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
   The chatroom allows you to see which user is who through their usernames and colour coding your messages and others messages differently.
 
-  There is also the ability to enable encryption anytime in the chat for any duration during yor time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.</p>
+  There is also the ability to enable encryption anytime in the chat for any duration of time during your time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.</p>
 
   <h3>The exploit:</h3>
   <p>The exploit is a python code that connects to the port at which the communication occurs in the chatroom. It "listens" in on the conversation and is able to read and log the chats in a log file.
