@@ -44,5 +44,5 @@ However, the interceptor knows the port which you will be communicating through!
 
 The interceptor will save the chat history in an log file which can be reviewed to see the messages that it intercepted.
 
-To remove the interceptor make sure you cd to the directory if you already aren't in it. Run the following command to remove the log file once done running using the app.
+To remove the interceptor log file make sure you cd to the directory if you already aren't in it. Run the following command to remove the log file once done running using the app.
   rm -f intercepted_messages.log
