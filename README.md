@@ -51,11 +51,11 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
   -------------------------------------------------------------------------------------------------------
   </p>
 
-You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other.
+<p>You can then connect as many devices that are on the same network at the given localhost url and seamlessly chat with each other.
 
 However, the interceptor knows the port which you will be communicating through!! Make sure to toggle encryption so they can't "listen" to your conversation.
 
 The interceptor will save the chat history in an log file which can be reviewed to see the messages that it intercepted. Saves as "intercepted_messages.log"
 
-To remove the interceptor log file make sure you cd to the "cpsc525" directory if you already aren't in it. Run the following command to remove the log file once done running using the app.
-  rm -f intercepted_messages.log
+To remove the interceptor log file make sure you cd to the "cpsc525" directory if you already aren't in it. Run the following command to remove the log file once done running using the app.</p>
+    rm -f intercepted_messages.log
