@@ -7,7 +7,7 @@ CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
   Each user can have their own unique username within the chatroom.
 
-  The chatroom is standard allowing for you to see which user is who through their usernames and colour coding your messages and others messages differently.
+  The chatroom allows you to see which user is who through their usernames and colour coding your messages and others messages differently.
 
   There is also the ability to enable encryption anytime in the chat for any duration during yor time within the chatroom. This allows you to have a "secure" chatting experience with other members within the chatroom.</p>
 
