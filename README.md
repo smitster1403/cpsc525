@@ -1,9 +1,9 @@
 CLONE OUR APP AND FOLLOW THESE STEPS TO RUN THE FILES
 
 HOW DOES OUR IMPLEMENTATION WORK:
-  #
+  
     paragraph goes here
-  #
+  
 
 -------------------------------------------------------------------------------------------------------
 
